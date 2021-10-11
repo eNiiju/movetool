@@ -42,10 +42,10 @@ async function handler(client: Client, g_data: GlobalData_t) {
     const commands = [...slashCommands, ...contextMenuCommand];
 
     // Update slash commands globally
-    ////await setCommands(client, commands);
+    await setCommands(client, commands);
 
     // Update slash commands for the debug guild
-    await setGuildCommands(client, commands, debugGuildId);
+    await setGuildCommands(client, [], debugGuildId);
 }
 
 /* ------------------------------------------------------------------------- */
