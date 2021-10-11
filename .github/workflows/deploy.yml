@@ -1,0 +1,33 @@
+name: Deployment workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+    build:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Executing remote ssh commands
+              uses: appleboy/ssh-action@master
+              env:
+                  GITHUB_REPOSITORY: '${{ github.repository }}'
+                  WORKING_DIRECTORY: '${{ secrets.WORKING_DIRECTORY }}'
+                  PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+                  BOT_TOKEN: '${{ secrets.BOT_TOKEN }}'
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  password: ${{ secrets.PASSWORD }}
+                  port: ${{ secrets.PORT }}
+                  envs: GITHUB_REPOSITORY, WORKING_DIRECTORY, PERSONAL_ACCESS_TOKEN, BOT_TOKEN
+                  script: |
+                      cd $WORKING_DIRECTORY
+                      rm -rf ${GITHUB_REPOSITORY#*/}
+                      git clone https://$PERSONAL_ACCESS_TOKEN@github.com/$GITHUB_REPOSITORY.git
+                      cd ${GITHUB_REPOSITORY#*/}
+                      touch .env
+                      echo "BOT_TOKEN=$BOT_TOKEN" > .env
+                      docker-compose down
+                      docker-compose build
+                      docker-compose up -d
