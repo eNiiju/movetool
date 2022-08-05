@@ -1,6 +1,6 @@
 # The Bot
 
-Movetool is a Discord bot made with discord.js allowing users to easily move members through voice channels.
+Movetool is a Discord bot made with discord.js allowing users to easily move multiple members through voice channels.
 
 It has commands to move members with different methods and conditions.
 
