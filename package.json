@@ -1,19 +1,18 @@
 {
     "name": "movetool",
-    "version": "2.1.0",
-    "description": "Discord bot to easily move members through voice channels.",
+    "version": "3.0.0",
+    "description": "Discord bot to easily move multiple move members through voice channels.",
+    "author": "Niiju",
+    "repository": "github:eNiiju/movetool",
     "main": "dist/index.js",
     "scripts": {
-        "start": "tsc && node dist/index.js"
-    },
-    "author": "Niiju",
-    "devDependencies": {
-        "@types/node": "^16.10.2"
+        "start": "tsc && node dist/index.js",
+        "register-commands": "tsc && node dist/registerCommands.js",
+        "register-commands-debug": "tsc && node dist/registerCommands.js --debug"
     },
     "dependencies": {
-        "typescript": "^4.4.3",
-        "discord.js": "^13.2.0",
-        "dotenv": "^10.0.0",
-        "fs": "^0.0.1-security"
+        "discord.js": "^14.2.0",
+        "dotenv": "^16.0.1",
+        "typescript": "^4.7.4"
     }
 }

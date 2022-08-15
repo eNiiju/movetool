@@ -1,93 +1,31 @@
-/**
- * @file            types.ts
- * @author          Niiju
- * @description     Different custom types used across the project. 
- */
+import { ApplicationCommandData, ApplicationCommandOption, ApplicationCommandOptionType, ApplicationCommandType, Client, Collection, Interaction } from 'discord.js';
 
-/* ------------------------------------------------------------------------- */
-/*                               Node modules                                */
-/* ------------------------------------------------------------------------- */
-
-import { ApplicationCommandOption, Client, Collection, CommandInteraction, PermissionString } from 'discord.js';
-
-/* ------------------------------------------------------------------------- */
-/*                               Type exports                                */
-/* ------------------------------------------------------------------------- */
-
-/**
- * Type for the container storing the data used accross all files of the project.
- */
-export type GlobalData_t = {
-    slashCommands: Collection<string, SlashCommand_t>;
-    contextMenuCommands: Collection<string, ContextMenu_t>;
-};
-
-/**
- * Type for event handler files.
- */
-export type Event_t = {
+export interface Event {
     name: string;
-    handler(client: Client, g_data: GlobalData_t, ...args: any[]): void;
-};
-
-/**
- * Type for a slash command : "Top level command".
- */
-export type SlashCommand_t = {
-    data: {
-        name: string;
-        description: string;
-        options: ApplicationCommandOption[];
-    };
-    verify(client: Client, interaction: CommandInteraction): boolean;
-    execute(client: Client, interaction: CommandInteraction): Promise<void>;
-};
-
-/**
- * Type for a subcommand group : First child of a slash command.
- */
-export type SubcommandGroup_t = {
-    data: {
-        type: 'SUB_COMMAND_GROUP';
-        name: string;
-        description: string;
-        options: any[];
-    };
-    verify(client: Client, interaction: CommandInteraction): boolean;
-    execute(client: Client, interaction: CommandInteraction): Promise<void>;
-};
-
-/**
- * Type for a subcommand : First or second child of a slash command.
- * Can be the first child of a subcommand group too.
- */
-export type Subcommand_t = {
-    data: {
-        type: 'SUB_COMMAND';
-        name: string;
-        description: string;
-        options: any[];
-    };
-    verify(client: Client, interaction: CommandInteraction): boolean;
-    execute(client: Client, interaction: CommandInteraction): Promise<void>;
-};
-
-/**
- * Type for a context menu command.
- */
-export type ContextMenu_t = {
-    data: {
-        type: 'USER' | 'MESSAGE';
-        name: string;
-    };
-    verify(client: Client, interaction: CommandInteraction): boolean;
-    execute(client: Client, interaction: CommandInteraction): Promise<void>;
+    handler: (client: Client, commands: Commands, ...args: any[]) => void;
 }
 
-/**
- * Type for informations about a command.
- */
-export type CommandInfos_t = {
-    dmAllowed: boolean;
-    clientPermissions: PermissionString[];
+export interface Commands {
+    chatInput: Collection<string, ChatInputCommand>;
+    contextMenu: Collection<string, ContextMenuCommand>;
+}
+
+export type ChatInputCommand = ApplicationCommandData & {
+    type: ApplicationCommandType.ChatInput;
+    execute: (client: Client, interaction: Interaction) => void;
+};
+
+export type ContextMenuCommand = ApplicationCommandData & {
+    type: ApplicationCommandType.User | ApplicationCommandType.Message;
+    execute: (client: Client, interaction: Interaction) => void;
+};
+
+export type ChatInputSubCommand = ApplicationCommandOption & {
+    type: ApplicationCommandOptionType.Subcommand;
+    execute: (client: Client, interaction: Interaction) => void;
+};
+
+export type ChatInputSubCommandGroup = ApplicationCommandOption & {
+    type: ApplicationCommandOptionType.SubcommandGroup;
+    execute: (client: Client, interaction: Interaction) => void;
 };

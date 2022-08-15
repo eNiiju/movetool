@@ -1,14 +1,15 @@
-/**
- * @file            config.ts
- * @author          Niiju
- * @description     Configuration file
- */
+import { ClientOptions } from 'discord.js';
 
-
-import { Intents } from 'discord.js';
-
-const intents = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES];
-const partials = [];
-const debugGuildId = '714979539251626137';
-
-export { intents, partials, debugGuildId };
+export default {
+    clientOptions: {
+        intents: ['Guilds', 'GuildMembers', 'GuildVoiceStates']
+    } as ClientOptions,
+    debug: {
+        guildId: '714979539251626137'
+    },
+    colors: {
+        red: 0xff7675,
+        green: 0x55efc4,
+        yellow: 0xffeaa7
+    }
+};

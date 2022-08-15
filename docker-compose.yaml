@@ -3,4 +3,4 @@ services:
     bot:
         build: .
         restart: unless-stopped
-        command: npm start
+        command: npm run start
