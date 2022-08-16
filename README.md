@@ -1,20 +1,22 @@
 # About
 
-Movetool is a Discord bot made with discord.js allowing users to easily move multiple members through voice channels. <br />
+Movetool is a Discord bot made with discord.js allowing users to easily move multiple members through voice channels.
 It has commands to move members with various methods and conditions.
+
+The bot keeps logs of every actions that it took in each server.
+These logs can be viewed through the **/logs** command, and are <u>deleted by removing the bot from your server</u>.
 
 You can invite the bot to your server with [**This Link**](https://discord.com/api/oauth2/authorize?client_id=827353852290007080&permissions=16777216&scope=bot%20applications.commands).
 
-| Command                | Type              | Options                             | Required permissions | Description                                                                   |
-|------------------------|:-----------------:|:-----------------------------------:|:--------------------:|-------------------------------------------------------------------------------|
-| **/assemble**          | Slash             | <a href="#assemble">See</a>         | `Move Members`       | Move everyone in the server to a specific channel.                            |
-| **/follow**            | Slash             | None                                | `Move Members`       | Change voice channel and everyone from your previous channel will follow you. |
-| **/logs**              | Slash             | None                                | `View Audit Log`     | View logs.                                                                    |
-| **/move members**      | Slash             | <a href="#move-members">See</a>     | `Move Members`       | Move members in a voice channel to another one.                               |
-| **/move only admins**  | Slash             | <a href="#move-only-admins">See</a> | `Move Members`       | Move members that are administrators of the server.                           |
-| **/move only role**    | Slash             | <a href="#move-only-role">See</a>   | `Move Members`       | Move members that have a specific role.                                       |
-| **/split**             | Slash             | <a href="#split">See</a>            | `Move Members`       | Split the members from a voice channel in half.                               |
-| **Move to my channel** | User context menu | None                                | `Move Members`       | Split the members from a voice channel in half.                               |
+| Command                | Type              | Options                | Required permissions | Description                                                                   |
+|------------------------|:-----------------:|:----------------------:|:--------------------:|-------------------------------------------------------------------------------|
+| **/assemble**          | Slash             | [See](#assemble)       | `Move Members`       | Move everyone in the server to a specific voice channel. **I recommend restricting this command to moderators in `Server Settings` > `Integrations`.** |
+| **/follow**            | Slash             | None                   | `Move Members`       | Change voice channel and everyone from your previous channel will follow you. |
+| **/logs**              | Slash             | None                   | `View Audit Log`     | View logs.                                                                    |
+| **/move members**      | Slash             | [See](#move-members)   | `Move Members`       | Move members in a voice channel to another one.                               |
+| **/move only role**    | Slash             | [See](#move-only-role) | `Move Members`       | Move members that have a specific role to another voice channel.              |
+| **/split**             | Slash             | [See](#split)          | `Move Members`       | Split the members from a voice channel in half.                               |
+| **Move to my channel** | User context menu | None                   | `Move Members`       | Move the selected member to your current voice channel.                       |
 
 <br />
 
@@ -27,13 +29,6 @@ You can invite the bot to your server with [**This Link**](https://discord.com/a
 | **destination** | `false`  | The destination channel. If not provided, it will use your current voice channel. |
 
 ## /move members
-
-| Option          | Required | Description                                                                       |
-|-----------------|:--------:|-----------------------------------------------------------------------------------|
-| **destination** | `true`   | The destination channel. If not provided, it will use your current voice channel. |
-| **source**      | `false`  | The channel to move members from.                                                 |
-
-## /move only admins
 
 | Option          | Required | Description                                                                       |
 |-----------------|:--------:|-----------------------------------------------------------------------------------|

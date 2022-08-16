@@ -55,13 +55,10 @@ export default {
             const nbMembersMoved = moveAllMembers(memberVoiceChannel, destinationChannel);
 
             // Done! Edit the previous reply
-            let description = '';
-            if (!nbMembersMoved) description = 'Nothing changed.';
-            else {
-                description = `**${nbMembersMoved}** member${nbMembersMoved === 1 ? ' has' : 's have'} been moved from <#${memberVoiceChannel.id}> to <#${destinationChannel.id}>`;
-                if (nbMembersMoved < memberVoiceChannel.members.size)
-                    description += '\n\nSome members may not have been moved due to them not having the `Connect` permission to the channel.';
-            }
+            const description =
+                nbMembersMoved === 0
+                    ? 'Nothing changed.'
+                    : `**${nbMembersMoved}** member${nbMembersMoved === 1 ? ' has' : 's have'} been moved from <#${memberVoiceChannel.id}> to <#${destinationChannel.id}>`;
             interaction.editReply(embedMessage('Done', description, config.colors.green));
         }
     }

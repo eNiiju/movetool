@@ -1,9 +1,13 @@
-import { ApplicationCommandOptionType, ChannelType, ChatInputCommandInteraction, Client } from 'discord.js';
+import { ApplicationCommandOptionType, ChannelType, ChatInputCommandInteraction, Client, Role, VoiceBasedChannel, VoiceChannel } from 'discord.js';
+import config from '../../../../config';
+import { replyToInteraction } from '../../../../lib/message';
+import { move, moveAllMembers } from '../../../../lib/move';
+import { getMemberById } from '../../../../lib/util';
 import { ChatInputSubCommand } from '../../../../types';
 
 export default {
     name: 'role',
-    description: 'Move members that have a specific role.',
+    description: 'Move members that have a specific role to another voice channel.',
     type: ApplicationCommandOptionType.Subcommand,
     dmPermission: false,
     options: [
@@ -29,6 +33,51 @@ export default {
         }
     ],
     execute(client: Client, interaction: ChatInputCommandInteraction) {
-        console.log('move only role');
+        // Retrieve options
+        const role = interaction.options.get('role')?.role as Role;
+        const destination = interaction.options.get('destination')?.channel as VoiceBasedChannel;
+        const source = interaction.options.get('source')?.channel as VoiceChannel | null;
+
+        const guild = interaction.guild;
+        const userId = interaction.member?.user.id;
+        if (!guild || !userId) return replyToInteraction(interaction, true, 'Error', "Can't retrieve guild or user data", config.colors.red);
+
+        const member = getMemberById(guild, userId);
+        if (!member) return replyToInteraction(interaction, true, 'Error', "Can't retrieve member data", config.colors.red);
+
+        const sourceChannel = source ?? member.voice.channel;
+
+        // No source channel
+        if (!sourceChannel)
+            return replyToInteraction(interaction, true, 'Error', "You didn't provide a source channel and are not connected to any", config.colors.red);
+
+        // Source channel is empty
+        if (sourceChannel.members.size === 0)
+            return replyToInteraction(interaction, true, 'Error', `The channel <#${sourceChannel.id}> is empty`, config.colors.red);
+
+        // There are no members with the provided role in the source channel
+        if (!sourceChannel.members.find(m => m.roles.cache.has(role.id)))
+            return replyToInteraction(
+                interaction,
+                true,
+                'Error',
+                `The channel <#${sourceChannel.id}> doesn't contain any member with the role <@&${role.id}>`,
+                config.colors.red
+            );
+
+        // Move members to the destination channel, if they have the provided role
+        let nbMembersMoved = 0;
+        for (const member of sourceChannel.members.values()) {
+            if (member.roles.cache.has(role.id) && move(member, destination)) nbMembersMoved++;
+        }
+
+        // Done!
+        const description =
+            nbMembersMoved === 0
+                ? 'Nothing changed.'
+                : `**${nbMembersMoved}** member${
+                      nbMembersMoved === 1 ? ` with the role <@&${role.id}> has` : `s with the role <@&${role.id}> have`
+                  } been moved from <#${sourceChannel.id}> to <#${destination.id}>`;
+        replyToInteraction(interaction, true, 'Done', description, config.colors.green);
     }
 } as ChatInputSubCommand;

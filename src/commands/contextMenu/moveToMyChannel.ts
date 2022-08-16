@@ -1,7 +1,7 @@
 import { ApplicationCommandType, UserContextMenuCommandInteraction, VoiceBasedChannel, VoiceChannel } from 'discord.js';
 import config from '../../config';
 import { replyToInteraction } from '../../lib/message';
-import { movable, move } from '../../lib/move';
+import { move } from '../../lib/move';
 import { getMemberById, getMemberVoiceBasedChannel, isInStageChannel, isInVoiceChannel } from '../../lib/util';
 import { ContextMenuCommand } from '../../types';
 
@@ -38,12 +38,8 @@ export default {
         if (memberVoiceChannel.id === targetMemberVoiceChannel.id)
             return replyToInteraction(interaction, true, 'Error', 'This member is already in your voice channel', config.colors.red);
 
-        // Target member is not movable to this channel
-        if (!movable(targetMember, memberVoiceChannel))
-            return replyToInteraction(interaction, true, 'Error', 'This member cannot be moved to your voice channel', config.colors.red);
-
         // Move target member to the member's voice/stage channel !
         move(targetMember, memberVoiceChannel);
-        replyToInteraction(interaction, false, 'Done', `<@!${targetUserId}> was moved to your voice channel`, config.colors.green);
+        replyToInteraction(interaction, true, 'Done', `<@!${targetUserId}> was moved to your voice channel`, config.colors.green);
     }
 } as ContextMenuCommand;
