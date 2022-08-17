@@ -1,4 +1,6 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from 'discord.js';
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User } from 'discord.js';
+import config from '../../config';
+import Database from '../../modules/Database';
 import { ChatInputCommand } from '../../types';
 
 export default {
@@ -7,7 +9,51 @@ export default {
     type: ApplicationCommandType.ChatInput,
     defaultMemberPermissions: ['ViewAuditLog'],
     dmPermission: true,
-    execute(client, interaction: ChatInputCommandInteraction) {
-        console.log('logs');
+    options: [
+        {
+            name: 'user',
+            description: 'View logs of a specific user.',
+            required: false,
+            type: ApplicationCommandOptionType.User
+        }
+    ],
+    async execute(client, interaction: ChatInputCommandInteraction) {
+        // Retrieve options
+        const user = interaction.options.get('user')?.user as User | undefined;
+
+        if (!interaction.guild) return;
+
+        // Retrieve logs from the database
+        const logs: any = await Database.getLogs(interaction.guild.id, user?.id);
+
+        // Reply with the logs
+        let title: string;
+        const description = logs
+            .map(
+                (log: any) =>
+                    `<t:${Math.floor(log.timestamp / 1000)}:R> - <@!${log.userId}> used \`${log.command}\` to move **${log.nbMembersMoved}** member${log.nbMembersMoved > 1 ? 's' : ''}`
+            )
+            .join('\n');
+
+        if (logs.length === 0) title = `Last logs of ${user ? user.username : 'the server'}`;
+        else if (logs.length === 1) title = `Only log of ${user ? user.username : 'the server'}`;
+        else title = `Last ${logs.length} logs of ${user ? user.username : 'the server'}`;
+
+        interaction.reply({
+            ephemeral: true,
+            embeds: [
+                {
+                    title,
+                    description: logs.length > 0 ? description : 'No logs found.',
+                    color: logs.length > 0 ? config.colors.green : config.colors.red,
+                    author: user
+                        ? {
+                              name: user?.tag,
+                              icon_url: user?.displayAvatarURL()
+                          }
+                        : undefined
+                }
+            ]
+        });
     }
 } as ChatInputCommand;

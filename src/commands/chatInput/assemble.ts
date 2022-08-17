@@ -1,5 +1,6 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, VoiceBasedChannel, VoiceChannel } from 'discord.js';
 import config from '../../config';
+import Database from '../../modules/Database';
 import { replyToInteraction } from '../../lib/message';
 import { moveAllMembers } from '../../lib/move';
 import { getMemberById, isInStageChannel, isInVoiceChannel } from '../../lib/util';
@@ -52,5 +53,6 @@ export default {
             `**${nbMembersMoved}** member${nbMembersMoved === 1 ? ' has' : 's have'} been moved to <#${channel.id}>`,
             config.colors.green
         );
+        Database.log(guild.id, userId, '/assemble', nbMembersMoved);
     }
 } as ChatInputCommand;

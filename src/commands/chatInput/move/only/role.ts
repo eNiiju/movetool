@@ -1,7 +1,8 @@
 import { ApplicationCommandOptionType, ChannelType, ChatInputCommandInteraction, Client, Role, VoiceBasedChannel, VoiceChannel } from 'discord.js';
 import config from '../../../../config';
+import Database from '../../../../modules/Database';
 import { replyToInteraction } from '../../../../lib/message';
-import { move, moveAllMembers } from '../../../../lib/move';
+import { move } from '../../../../lib/move';
 import { getMemberById } from '../../../../lib/util';
 import { ChatInputSubCommand } from '../../../../types';
 
@@ -79,5 +80,6 @@ export default {
                       nbMembersMoved === 1 ? ` with the role <@&${role.id}> has` : `s with the role <@&${role.id}> have`
                   } been moved from <#${sourceChannel.id}> to <#${destination.id}>`;
         replyToInteraction(interaction, true, 'Done', description, config.colors.green);
+        Database.log(guild.id, userId, '/move only role', nbMembersMoved);
     }
 } as ChatInputSubCommand;

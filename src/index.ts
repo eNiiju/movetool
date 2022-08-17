@@ -8,8 +8,8 @@ import { Commands, ContextMenuCommand, Event, ChatInputCommand } from './types';
 /*                             Global variables                              */
 /* ------------------------------------------------------------------------- */
 
+const { DISCORD_TOKEN } = process.env;
 const client = new Client(config.clientOptions);
-const token = process.env.TOKEN;
 
 const commands: Commands = {
     chatInput: new Collection<string, ChatInputCommand>(),
@@ -38,4 +38,4 @@ readdirSync(`${__dirname}/events`)
         client.on(event.name, event.handler.bind(null, client, commands));
     });
 
-client.login(token);
+client.login(DISCORD_TOKEN);

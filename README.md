@@ -12,7 +12,7 @@ You can invite the bot to your server with [**This Link**](https://discord.com/a
 |------------------------|:-----------------:|:----------------------:|:--------------------:|-------------------------------------------------------------------------------|
 | **/assemble**          | Slash             | [See](#assemble)       | `Move Members`       | Move everyone in the server to a specific voice channel. **I recommend restricting this command to moderators in `Server Settings` > `Integrations`.** |
 | **/follow**            | Slash             | None                   | `Move Members`       | Change voice channel and everyone from your previous channel will follow you. |
-| **/logs**              | Slash             | None                   | `View Audit Log`     | View logs.                                                                    |
+| **/logs**              | Slash             | [See](#logs)           | `View Audit Log`     | View logs.                                                                    |
 | **/move members**      | Slash             | [See](#move-members)   | `Move Members`       | Move members in a voice channel to another one.                               |
 | **/move only role**    | Slash             | [See](#move-only-role) | `Move Members`       | Move members that have a specific role to another voice channel.              |
 | **/split**             | Slash             | [See](#split)          | `Move Members`       | Split the members from a voice channel in half.                               |
@@ -27,6 +27,12 @@ You can invite the bot to your server with [**This Link**](https://discord.com/a
 | Option          | Required | Description                                                                       |
 |-----------------|:--------:|-----------------------------------------------------------------------------------|
 | **destination** | `false`  | The destination channel. If not provided, it will use your current voice channel. |
+
+## /logs
+
+| Option          | Required | Description                                                                       |
+|-----------------|:--------:|-----------------------------------------------------------------------------------|
+| **user**        | `false`  | View logs of a specific user.                                                     |
 
 ## /move members
 
