@@ -1,6 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User } from 'discord.js';
 import config from '../../config';
 import Database from '../../modules/Database';
+import { replyToInteraction } from '../../lib/message';
 import { ChatInputCommand } from '../../types';
 
 export default {
@@ -8,7 +9,7 @@ export default {
     description: 'View logs.',
     type: ApplicationCommandType.ChatInput,
     defaultMemberPermissions: ['ViewAuditLog'],
-    dmPermission: true,
+    dmPermission: false,
     options: [
         {
             name: 'user',
@@ -26,12 +27,24 @@ export default {
         // Retrieve logs from the database
         const logs: any = await Database.getLogs(interaction.guild.id, user?.id);
 
+        // There is no collection in the database for this guild
+        if (!(await Database.collectionExists(interaction.guild.id)))
+            return replyToInteraction(
+                interaction,
+                true,
+                'Error',
+                'Logging is disabled on this server. \nAn administrator can enable it with the `/enable logging` command.',
+                config.colors.red
+            );
+
         // Reply with the logs
         let title: string;
         const description = logs
             .map(
                 (log: any) =>
-                    `<t:${Math.floor(log.timestamp / 1000)}:R> - <@!${log.userId}> used \`${log.command}\` to move **${log.nbMembersMoved}** member${log.nbMembersMoved > 1 ? 's' : ''}`
+                    `<t:${Math.floor(log.timestamp / 1000)}:R> - <@!${log.userId}> used \`${log.command}\` to move **${log.nbMembersMoved}** member${
+                        log.nbMembersMoved > 1 ? 's' : ''
+                    }`
             )
             .join('\n');
 

@@ -3,7 +3,7 @@ import config from '../../config';
 import Database from '../../modules/Database';
 import { replyToInteraction } from '../../lib/message';
 import { moveAllMembers } from '../../lib/move';
-import { getMemberById, isInStageChannel, isInVoiceChannel } from '../../lib/util';
+import { getMemberById } from '../../lib/util';
 import { ChatInputCommand } from '../../types';
 
 export default {
