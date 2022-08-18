@@ -1,85 +1,42 @@
-/**
- * @file            util.ts
- * @author          Niiju
- * @description     Utility functions for discord.js
- */
-
-/* ------------------------------------------------------------------------- */
-/*                               Node Modules                                */
-/* ------------------------------------------------------------------------- */
-
-import { Client, Guild, Channel, Role, Message, TextChannel, Permissions, GuildMember } from 'discord.js';
+import { Client, Guild, Channel, Role, Message, TextChannel, GuildMember, ChannelType, VoiceBasedChannel } from 'discord.js';
 
 /* ------------------------------------------------------------------------- */
 /*                                 Functions                                 */
 /* ------------------------------------------------------------------------- */
 
-/**
- * Returns a guild from it's id.
- * @param {Client} client Bot's client
- * @param {string} guildId Guild's ID
- * @return {Guild | null} The guild
- */
-const getGuildById = (client: Client, guildId: string): Guild | null => client?.guilds.cache.get(guildId);
+const getGuildById = (client: Client, guildId: string): Guild | undefined => client?.guilds.cache.get(guildId);
 
-/**
- * Returns a channel from it's id.
- * @param {Client} guild The guild
- * @param {string} channelId Channel's ID
- * @return {Channel | null} The channel
- */
-const getChannelById = (guild: Guild, channelId: string): Channel | null => guild?.channels.cache.get(channelId);
+const getChannelById = (guild: Guild, channelId: string): Channel | undefined => guild?.channels.cache.get(channelId);
 
-/**
- * Fetches a message from it's id.
- * @param {TextChannel} channel The text channel
- * @param {string} messageId Message's ID
- * @return {Promise<Message> | null} The message
- */
-const fetchMessageById = async (channel: TextChannel, messageId: string): Promise<Message | null> => channel?.messages.fetch(messageId);
+const fetchMessageById = (channel: TextChannel, messageId: string): Promise<Message | undefined> => channel?.messages.fetch(messageId);
 
-/**
- * Returns a role from it's id.
- * @param {Guild} guild The guild
- * @param {string} roleId Role's ID
- * @return {Role | null} The role
- */
-const getRoleById = (guild: Guild, roleId: string): Role | null => guild?.roles.cache.get(roleId);
+const getRoleById = (guild: Guild, roleId: string): Role | undefined => guild?.roles.cache.get(roleId);
 
-/**
- * Returns if a user is admin from his id.
- * @param {Guild} guild The guild
- * @param {string} userId User's ID
- * @return {boolean} `true` if the user is an admin
- */
-const isAdmin = (guild: Guild, userId: string): boolean => guild?.members.cache.get(userId).permissions.has(Permissions.FLAGS.ADMINISTRATOR);
+const getMemberById = (guild: Guild, userId: string): GuildMember | undefined => guild?.members.cache.get(userId);
 
-/**
- * Returns a GuildMember from it's id.
- * @param {Guild} guild The guild
- * @param {string} userId User's ID
- * @return {GuildMember | null} The GuildMember
- */
-const getMemberById = (guild: Guild, userId: string): GuildMember | null => guild?.members.cache.get(userId);
+const fetchMemberById = (guild: Guild, userId: string): Promise<GuildMember | undefined> => guild?.members.fetch(userId);
 
-/**
- * Fetches a GuildMember from it's id.
- * @param {Guild} guild The guild
- * @param {string} userId User's ID
- * @return {GuildMember | null} The GuildMember
- */
-const fetchMemberById = (guild: Guild, userId: string): Promise<GuildMember | null> => guild?.members.fetch(userId);
-
-/**
- * Returns if a GuildMember has a role from the role's id.
- * @param {GuildMember} member The GuildMember
- * @param {string} roleId Role's ID
- * @return {boolean} `true` if the member has the provided role
- */
 const memberHasRole = (member: GuildMember, roleId: string): boolean => member?.roles.cache.has(roleId);
 
+const isInVoiceChannel = (guild: Guild, userId: string): boolean => getMemberById(guild, userId)?.voice.channel?.type === ChannelType.GuildVoice;
+
+const isInStageChannel = (guild: Guild, userId: string): boolean => getMemberById(guild, userId)?.voice.channel?.type === ChannelType.GuildStageVoice;
+
+const getMemberVoiceBasedChannel = (member: GuildMember): VoiceBasedChannel | null => member.voice.channel;
+
 /* ------------------------------------------------------------------------- */
-/*                                  Export                                   */
+/*                                  Exports                                  */
 /* ------------------------------------------------------------------------- */
 
-export { getGuildById, getChannelById, fetchMessageById, getRoleById, isAdmin, getMemberById, fetchMemberById, memberHasRole };
+export {
+    getGuildById,
+    getChannelById,
+    fetchMessageById,
+    getRoleById,
+    getMemberById,
+    fetchMemberById,
+    memberHasRole,
+    isInVoiceChannel,
+    isInStageChannel,
+    getMemberVoiceBasedChannel
+};
