@@ -31,17 +31,17 @@ jobs:
                       git clone https://$GH_PERSONAL_ACCESS_TOKEN@github.com/$GH_REPOSITORY.git
                       cd ${GH_REPOSITORY#*/}
                       echo "\
-# Discord.js
-DISCORD_TOKEN=$DISCORD_TOKEN
+                        # Discord.js
+                        DISCORD_TOKEN=$DISCORD_TOKEN
 
-# MongoDB
-MONGO_PORT=$MONGO_PORT
-MONGO_ROOT_USER=$MONGO_ROOT_USER
-MONGO_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
-MONGO_USER=$MONGO_USER
-MONGO_PASSWORD=$MONGO_PASSWORD
-MONGO_DB=$MONGO_DB\
-" > .env
+                        # MongoDB
+                        MONGO_PORT=$MONGO_PORT
+                        MONGO_ROOT_USER=$MONGO_ROOT_USER
+                        MONGO_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
+                        MONGO_USER=$MONGO_USER
+                        MONGO_PASSWORD=$MONGO_PASSWORD
+                        MONGO_DB=$MONGO_DB\
+                        " > .env
                       docker-compose down
                       docker-compose build
                       docker-compose up -d
