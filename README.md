@@ -8,16 +8,17 @@ These logs can be viewed through the **/logs** command, and can be deleted with 
 
 You can invite the bot to your server with [**This Link**](https://discord.com/api/oauth2/authorize?client_id=827353852290007080&permissions=16777216&scope=bot%20applications.commands).
 
-| Command                | Type              | Options                | Required permissions | Description                                                                   |
-|------------------------|:-----------------:|:----------------------:|:--------------------:|-------------------------------------------------------------------------------|
-| **/assemble**          | Chat input        | [See](#assemble)       | `Move Members`       | Move everyone in the server to a specific voice channel. **I recommend restricting this command to moderators in `Server Settings` > `Integrations`.** |
-| **/enable logging**    | Chat input        | [See](#enable-logging) | `Administrator`      | Enable or disabled Movetool logging on the server.                            |
-| **/follow**            | Chat input        | None                   | `Move Members`       | Change voice channel and everyone from your previous channel will follow you. |
-| **/logs**              | Chat input        | [See](#logs)           | `View Audit Log`     | View logs.                                                                    |
-| **/move members**      | Chat input        | [See](#move-members)   | `Move Members`       | Move members in a voice channel to another one.                               |
-| **/move only role**    | Chat input        | [See](#move-only-role) | `Move Members`       | Move members that have a specific role to another voice channel.              |
-| **/split**             | Chat input        | [See](#split)          | `Move Members`       | Split the members from a voice channel in half.                               |
-| **Move to my channel** | User context menu | None                   | `Move Members`       | Move the selected member to your current voice channel.                       |
+| Command                 | Type              | Options                | Required permissions | Description                                                                   |
+|-------------------------|:-----------------:|:----------------------:|:--------------------:|-------------------------------------------------------------------------------|
+| **/assemble**           | Chat input        | [See](#assemble)       | `Move Members`       | Move everyone in the server to a specific voice channel. **I recommend restricting this command to moderators in `Server Settings` > `Integrations`.** |
+| **/enable logging**     | Chat input        | [See](#enable-logging) | `Administrator`      | Enable or disabled Movetool logging on the server.                            |
+| **/follow**             | Chat input        | None                   | `Move Members`       | Change voice channel and everyone from your previous channel will follow you. |
+| **/logs**               | Chat input        | [See](#logs)           | `View Audit Log`     | View logs.                                                                    |
+| **/move members**       | Chat input        | [See](#move-members)   | `Move Members`       | Move members in a voice channel to another one.                               |
+| **/move only role**     | Chat input        | [See](#move-only-role) | `Move Members`       | Move members that have a specific role to another voice channel.              |
+| **/split**              | Chat input        | [See](#split)          | `Move Members`       | Split the members from a voice channel in half.                               |
+| **Go to their channel** | User context menu | None                   | None                 | Move yourself to the selected member's voice channel, if you have permission to connect. |
+| **Move to my channel**  | User context menu | None                   | `Move Members`       | Move the selected member to your current voice channel.                       |
 
 <br />
 
