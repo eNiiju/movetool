@@ -4,9 +4,9 @@ import Logger from './Logger';
 import { DatabaseLog } from '../types';
 
 const MAX_LOGS = 15;
-const { MONGO_PORT, MONGO_USER, MONGO_PASSWORD, MONGO_DB } = process.env;
+const { MONGO_HOST, MONGO_PORT, MONGO_USER, MONGO_PASSWORD, MONGO_DB } = process.env;
 
-const url = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@localhost:${MONGO_PORT}/${MONGO_DB}`;
+const url = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
 const client = new mongo.MongoClient(url);
 let db: mongo.Db;
 
