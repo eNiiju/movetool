@@ -3,7 +3,7 @@
 Movetool is a Discord bot made with discord.js allowing users to easily move multiple members through voice channels.
 It has commands to move members with various methods and conditions.
 
-The bot keeps logs of every actions that it took in each server.
+The bot keeps logs of every moving actions that it took in each server.
 These logs can be viewed through the **/logs** command, and are <u>deleted by removing the bot from your server</u>.
 
 You can invite the bot to your server with [**This Link**](https://discord.com/api/oauth2/authorize?client_id=827353852290007080&permissions=16777216&scope=bot%20applications.commands).
