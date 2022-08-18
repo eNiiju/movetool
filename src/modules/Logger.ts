@@ -35,20 +35,20 @@ enum Formating {
 /* ------------------------------------------------------------------------- */
 
 export default {
-    log(content: any) {
-        console.log(`${getFormatedDate()} ${content}${Formating.Reset}`);
+    info(content: any) {
+        console.log(`${getFormatedDate()} [INFO] ${content}${Formating.Reset}`);
     },
     error(content: any) {
-        console.log(`${getFormatedDate()} ${Formating.BgRed}${content}${Formating.Reset}`);
+        console.log(`${getFormatedDate()} ${Formating.BgRed}[ERROR] ${content}${Formating.Reset}`);
     },
     warn(content: any) {
-        console.log(`${getFormatedDate()} ${Formating.FgBlack + Formating.BgYellow}${content}${Formating.Reset}`);
+        console.log(`${getFormatedDate()} ${Formating.FgBlack + Formating.BgYellow}[WARN] ${content}${Formating.Reset}`);
     },
     debug(content: any) {
-        console.log(`${getFormatedDate()} ${Formating.FgCyan}${content}${Formating.Reset}`);
+        console.log(`${getFormatedDate()} ${Formating.FgCyan}[DEBUG] ${content}${Formating.Reset}`);
     },
-    ready(content: any) {
-        console.log(`${getFormatedDate()} ${Formating.FgGreen}${content}${Formating.Reset}`);
+    database(content: any) {
+        console.log(`${getFormatedDate()} ${Formating.FgGreen}[DATABASE] ${content}${Formating.Reset}`);
     }
 };
 

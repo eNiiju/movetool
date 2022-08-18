@@ -2,11 +2,13 @@ import 'dotenv/config';
 import { readdirSync } from 'node:fs';
 import { ApplicationCommandData, Client } from 'discord.js';
 import config from './config';
+import Logger from './modules/Logger';
 import { getGuildById } from './lib/util';
 
+const setDebugFlag = process.argv.includes('--set-debug');
+const unsetDebugFlag = process.argv.includes('--unset-debug');
 const client = new Client(config.clientOptions);
 const token = process.env.TOKEN;
-const debugMode = process.argv.includes('--debug');
 const commandTypes = ['chatInput', 'contextMenu'];
 const commands: ApplicationCommandData[] = [];
 
@@ -21,10 +23,17 @@ for (const commandType of commandTypes) {
 
 // When the bot is ready, set the commands
 client.on('ready', async () => {
-    if (debugMode) await getGuildById(client, config.debug.guildId)?.commands.set(commands);
-    else await client.application?.commands.set(commands);
+    if (setDebugFlag) {
+        await getGuildById(client, config.debug.guildId)?.commands.set(commands);
+        Logger.debug('Debug commands set.');
+    } else if (unsetDebugFlag) {
+        await getGuildById(client, config.debug.guildId)?.commands.set([]);
+        Logger.debug('Debug commands unset.');
+    } else {
+        await client.application?.commands.set(commands);
+        Logger.info('Commands registered');
+    }
 
-    console.log(`[${debugMode ? 'DEBUG MODE' : 'PRODUCTION MODE'}] Commands registered.`);
     client.destroy();
 });
 

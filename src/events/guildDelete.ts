@@ -6,7 +6,7 @@ import { Event } from '../types';
 export default {
     name: 'guildDelete',
     handler(client, commands, guild: Guild) {
-        Logger.log(`Client left '${guild.name}'`);
+        Logger.info(`Client left '${guild.name}'`);
         // Remove the guild logs from the database
         Database.deleteCollection(guild.id);
     }

@@ -3,12 +3,12 @@ import { getSubCommand, getSubCommands } from '../../lib/commands';
 import { ChatInputCommand } from '../../types';
 
 export default {
-    name: 'move',
-    description: 'Commands for moving members in various ways.',
+    name: 'enable',
+    description: 'Commands for enabling Movetool features.',
     type: ApplicationCommandType.ChatInput,
-    defaultMemberPermissions: ['MoveMembers'],
+    defaultMemberPermissions: ['Administrator'],
     dmPermission: false,
-    options: getSubCommands('move'),
+    options: getSubCommands('enable'),
     execute(client, interaction: ChatInputCommandInteraction) {
         getSubCommand(interaction).execute(client, interaction);
     }

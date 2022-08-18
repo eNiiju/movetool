@@ -5,6 +5,6 @@ import { Event } from '../types';
 export default {
     name: 'ready',
     handler(client) {
-        Logger.ready(`🚀 Logged in as ${client.user?.tag}`);
+        Logger.info(`Logged in as 🚀 ${client.user?.tag}`);
     }
 } as Event;

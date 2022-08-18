@@ -10,7 +10,6 @@ export default {
     name: 'role',
     description: 'Move members that have a specific role to another voice channel.',
     type: ApplicationCommandOptionType.Subcommand,
-    dmPermission: false,
     options: [
         {
             name: 'role',
