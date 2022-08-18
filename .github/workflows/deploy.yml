@@ -44,6 +44,6 @@ jobs:
                       MONGO_PASSWORD=$MONGO_PASSWORD
                       MONGO_DB=$MONGO_DB\
                       " > .env
-                      docker-compose down
+                      docker-compose stop bot
                       docker-compose build
                       docker-compose up -d
