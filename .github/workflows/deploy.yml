@@ -1,9 +1,6 @@
 name: Deployment workflow
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    workflow_dispatch:
 jobs:
     build:
         name: Deploy
@@ -13,22 +10,38 @@ jobs:
               uses: appleboy/ssh-action@master
               env:
                   GITHUB_REPOSITORY: '${{ github.repository }}'
+                  GITHUB_PERSONAL_ACCESS_TOKEN: '${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}'
                   WORKING_DIRECTORY: '${{ secrets.WORKING_DIRECTORY }}'
-                  PERSONAL_ACCESS_TOKEN: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
-                  BOT_TOKEN: '${{ secrets.BOT_TOKEN }}'
+                  DISCORD_TOKEN: '${{ secrets.DISCORD_TOKEN }}'
+                  MONGO_PORT: '${{ secrets.MONGO_PORT }}'
+                  MONGO_ROOT_USER: '${{ secrets.MONGO_ROOT_USER }}'
+                  MONGO_ROOT_PASSWORD: '${{ secrets.MONGO_ROOT_PASSWORD }}'
+                  MONGO_USER: '${{ secrets.MONGO_USER }}'
+                  MONGO_PASSWORD: '${{ secrets.MONGO_PASSWORD }}'
+                  MONGO_DB: '${{ secrets.MONGO_DB }}'
               with:
-                  host: ${{ secrets.HOST }}
-                  username: ${{ secrets.USERNAME }}
-                  password: ${{ secrets.PASSWORD }}
-                  port: ${{ secrets.PORT }}
-                  envs: GITHUB_REPOSITORY, WORKING_DIRECTORY, PERSONAL_ACCESS_TOKEN, BOT_TOKEN
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  port: ${{ secrets.SSH_PORT }}
+                  envs: 
                   script: |
                       cd $WORKING_DIRECTORY
                       rm -rf ${GITHUB_REPOSITORY#*/}
-                      git clone https://$PERSONAL_ACCESS_TOKEN@github.com/$GITHUB_REPOSITORY.git
+                      git clone https://$GITHUB_PERSONAL_ACCESS_TOKEN@github.com/$GITHUB_REPOSITORY.git
                       cd ${GITHUB_REPOSITORY#*/}
-                      touch .env
-                      echo "BOT_TOKEN=$BOT_TOKEN" > .env
+                      echo "\
+# Discord.js
+DISCORD_TOKEN=$DISCORD_TOKEN
+
+# MongoDB
+MONGO_PORT=$MONGO_PORT
+MONGO_ROOT_USER=$MONGO_ROOT_USER
+MONGO_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
+MONGO_USER=$MONGO_USER
+MONGO_PASSWORD=$MONGO_PASSWORD
+MONGO_DB=$MONGO_DB\
+" > .env
                       docker-compose down
                       docker-compose build
                       docker-compose up -d
