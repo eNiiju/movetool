@@ -13,6 +13,7 @@ jobs:
                   GH_PERSONAL_ACCESS_TOKEN: '${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}'
                   WORKING_DIRECTORY: '${{ secrets.WORKING_DIRECTORY }}'
                   DISCORD_TOKEN: '${{ secrets.DISCORD_TOKEN }}'
+                  MONGO_HOST: '${{ secrets.MONGO_HOST }}'
                   MONGO_PORT: '${{ secrets.MONGO_PORT }}'
                   MONGO_ROOT_USER: '${{ secrets.MONGO_ROOT_USER }}'
                   MONGO_ROOT_PASSWORD: '${{ secrets.MONGO_ROOT_PASSWORD }}'
@@ -24,24 +25,25 @@ jobs:
                   username: ${{ secrets.SSH_USERNAME }}
                   password: ${{ secrets.SSH_PASSWORD }}
                   port: ${{ secrets.SSH_PORT }}
-                  envs: GH_REPOSITORY, GH_PERSONAL_ACCESS_TOKEN, WORKING_DIRECTORY, DISCORD_TOKEN, MONGO_PORT, MONGO_ROOT_USER, MONGO_ROOT_PASSWORD, MONGO_USER, MONGO_PASSWORD, MONGO_DB
+                  envs: GH_REPOSITORY, GH_PERSONAL_ACCESS_TOKEN, WORKING_DIRECTORY, DISCORD_TOKEN, MONGO_HOST, MONGO_PORT, MONGO_ROOT_USER, MONGO_ROOT_PASSWORD, MONGO_USER, MONGO_PASSWORD, MONGO_DB
                   script: |
                       cd $WORKING_DIRECTORY
                       rm -rf ${GH_REPOSITORY#*/}
                       git clone https://$GH_PERSONAL_ACCESS_TOKEN@github.com/$GH_REPOSITORY.git
                       cd ${GH_REPOSITORY#*/}
                       echo "\
-                        # Discord.js
-                        DISCORD_TOKEN=$DISCORD_TOKEN
+                      # Discord.js
+                      DISCORD_TOKEN=$DISCORD_TOKEN
 
-                        # MongoDB
-                        MONGO_PORT=$MONGO_PORT
-                        MONGO_ROOT_USER=$MONGO_ROOT_USER
-                        MONGO_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
-                        MONGO_USER=$MONGO_USER
-                        MONGO_PASSWORD=$MONGO_PASSWORD
-                        MONGO_DB=$MONGO_DB\
-                        " > .env
+                      # MongoDB
+                      MONGO_HOST=$MONGO_HOST
+                      MONGO_PORT=$MONGO_PORT
+                      MONGO_ROOT_USER=$MONGO_ROOT_USER
+                      MONGO_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
+                      MONGO_USER=$MONGO_USER
+                      MONGO_PASSWORD=$MONGO_PASSWORD
+                      MONGO_DB=$MONGO_DB\
+                      " > .env
                       docker-compose down
                       docker-compose build
                       docker-compose up -d
