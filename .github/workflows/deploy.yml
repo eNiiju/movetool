@@ -9,8 +9,8 @@ jobs:
             - name: Executing remote ssh commands
               uses: appleboy/ssh-action@master
               env:
-                  GITHUB_REPOSITORY: '${{ github.repository }}'
-                  GITHUB_PERSONAL_ACCESS_TOKEN: '${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}'
+                  GH_REPOSITORY: '${{ github.repository }}'
+                  GH_PERSONAL_ACCESS_TOKEN: '${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}'
                   WORKING_DIRECTORY: '${{ secrets.WORKING_DIRECTORY }}'
                   DISCORD_TOKEN: '${{ secrets.DISCORD_TOKEN }}'
                   MONGO_PORT: '${{ secrets.MONGO_PORT }}'
@@ -27,9 +27,9 @@ jobs:
                   envs: 
                   script: |
                       cd $WORKING_DIRECTORY
-                      rm -rf ${GITHUB_REPOSITORY#*/}
-                      git clone https://$GITHUB_PERSONAL_ACCESS_TOKEN@github.com/$GITHUB_REPOSITORY.git
-                      cd ${GITHUB_REPOSITORY#*/}
+                      rm -rf ${GH_REPOSITORY#*/}
+                      git clone https://$GH_PERSONAL_ACCESS_TOKEN@github.com/$GH_REPOSITORY.git
+                      cd ${GH_REPOSITORY#*/}
                       echo "\
 # Discord.js
 DISCORD_TOKEN=$DISCORD_TOKEN
