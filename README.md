@@ -66,8 +66,3 @@ You can invite the bot to your server with [**This Link**](https://discord.com/a
 | **second_destination** | Channel | `false`  | Channel to put the other half of the members in.                                                     |
 
 <br />
-
-# Contact
-
-You've found a bug, have feedback or want to see new features added? <br />
-Contact me on Discord : **Niiju#0001**
