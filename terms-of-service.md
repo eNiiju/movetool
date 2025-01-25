@@ -12,5 +12,4 @@ The user must not try to use the bot outside of what it's made for.
 
 ## Contact
 
-- Discord: Niiju#0001
-- Email: noemaillet03@gmail.com
+- Discord: niiju
