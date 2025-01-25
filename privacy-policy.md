@@ -32,5 +32,4 @@ Any data store in our database can be deleted at anytime by disabling logging fo
 
 ## Contact
 
-- Discord: Niiju#0001
-- Email: noemaillet03@gmail.com
+- Discord: niiju
