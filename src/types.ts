@@ -29,10 +29,3 @@ export type ChatInputSubCommandGroup = ApplicationCommandOption & {
     type: ApplicationCommandOptionType.SubcommandGroup;
     execute: (client: Client, interaction: Interaction) => void;
 };
-
-export interface DatabaseLog {
-    timestamp: number;
-    userId: string;
-    command: string;
-    nbMembersMoved: number;
-}

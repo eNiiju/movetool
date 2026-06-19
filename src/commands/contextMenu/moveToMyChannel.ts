@@ -1,6 +1,5 @@
 import { ApplicationCommandType, UserContextMenuCommandInteraction, VoiceBasedChannel, VoiceChannel } from 'discord.js';
 import config from '../../config';
-import Database from '../../modules/Database';
 import { replyToInteraction } from '../../lib/message';
 import { move } from '../../lib/move';
 import { getMemberById, getMemberVoiceBasedChannel, isInStageChannel, isInVoiceChannel } from '../../lib/util';
@@ -42,6 +41,5 @@ export default {
         // Move target member to the member's voice/stage channel !
         move(targetMember, memberVoiceChannel);
         replyToInteraction(interaction, true, 'Done', `<@!${targetUserId}> was moved to your voice channel`, config.colors.green);
-        Database.log(guild.id, userId, 'Move to my channel', 1);
     }
 } as ContextMenuCommand;

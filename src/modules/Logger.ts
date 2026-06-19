@@ -47,9 +47,6 @@ export default {
     debug(content: any) {
         console.log(`${getFormatedDate()} ${Formating.FgCyan}[DEBUG] ${content}${Formating.Reset}`);
     },
-    database(content: any) {
-        console.log(`${getFormatedDate()} ${Formating.FgGreen}[DATABASE] ${content}${Formating.Reset}`);
-    }
 };
 
 /* ------------------------------------------------------------------------- */

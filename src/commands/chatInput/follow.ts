@@ -1,6 +1,5 @@
 import { ApplicationCommandType, ChatInputCommandInteraction, Guild, VoiceBasedChannel, VoiceChannel, VoiceState } from 'discord.js';
 import config from '../../config';
-import Database from '../../modules/Database';
 import { embedMessage, replyToInteraction } from '../../lib/message';
 import { getMemberById, getMemberVoiceBasedChannel, isInVoiceChannel } from '../../lib/util';
 import { ChatInputCommand } from '../../types';
@@ -61,7 +60,6 @@ export default {
                     ? 'Nothing changed.'
                     : `**${nbMembersMoved}** member${nbMembersMoved === 1 ? ' has' : 's have'} been moved from <#${memberVoiceChannel.id}> to <#${destinationChannel.id}>`;
             interaction.editReply(embedMessage('Done', description, config.colors.green));
-            Database.log((guild as Guild).id, userId as string, '/follow', nbMembersMoved);
         }
     }
 } as ChatInputCommand;

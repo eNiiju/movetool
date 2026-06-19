@@ -3,17 +3,12 @@
 Movetool is a Discord bot made with discord.js allowing users to easily move multiple members through voice channels.
 It has commands to move members with various methods and conditions.
 
-The bot keeps logs of every moving actions that it took in each server, only if you've enabled logging with the **/enable logging** command.
-These logs can be viewed through the **/logs** command, and can be deleted with `/enable logging false` or by removing the bot from your server.
-
 You can invite the bot to your server with [**This Link**](https://discord.com/api/oauth2/authorize?client_id=827353852290007080&permissions=16777216&scope=bot%20applications.commands).
 
 | Command                 | Type              | Options                | Required permissions | Description                                                                   |
 |-------------------------|:-----------------:|:----------------------:|:--------------------:|-------------------------------------------------------------------------------|
 | **/assemble**           | Chat input        | [See](#assemble)       | `Move Members`       | Move everyone in the server to a specific voice channel. **I recommend restricting this command to moderators in `Server Settings` > `Integrations`.** |
-| **/enable logging**     | Chat input        | [See](#enable-logging) | `Administrator`      | Enable or disabled Movetool logging on the server.                            |
 | **/follow**             | Chat input        | None                   | `Move Members`       | Change voice channel and everyone from your previous channel will follow you. |
-| **/logs**               | Chat input        | [See](#logs)           | `View Audit Log`     | View logs.                                                                    |
 | **/move members**       | Chat input        | [See](#move-members)   | `Move Members`       | Move members in a voice channel to another one.                               |
 | **/move only role**     | Chat input        | [See](#move-only-role) | `Move Members`       | Move members that have a specific role to another voice channel.              |
 | **/split**              | Chat input        | [See](#split)          | `Move Members`       | Split the members from a voice channel in half.                               |
@@ -28,19 +23,7 @@ You can invite the bot to your server with [**This Link**](https://discord.com/a
 
 | Option          | Type    | Required | Description                                                                       |
 |-----------------|:-------:|:--------:|-----------------------------------------------------------------------------------|
-| **destination** | Channel | `false`  | The destination channel. If not provided, it will use your current voice channel. |
-
-## /enable logging
-
-| Option     | Type    | Required | Description                                                |
-|------------|:-------:|:--------:|------------------------------------------------------------|
-| **enable** | Boolean | `true`   | Whether to enable logging. Disabling will delete all logs. |
-
-## /logs
-
-| Option          | Type | Required | Description                                                                       |
-|-----------------|:----:|:--------:|-----------------------------------------------------------------------------------|
-| **user**        | User | `false`  | View logs of a specific user.                                                     |
+| **destination** | Channel | `false`  | The destination channel. If not provided, it will use your current voice channel. |                                              |
 
 ## /move members
 

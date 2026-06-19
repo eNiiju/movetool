@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, VoiceBasedChannel, VoiceChannel } from 'discord.js';
 import config from '../../config';
-import Database from '../../modules/Database';
 import { replyToInteraction } from '../../lib/message';
 import { move } from '../../lib/move';
 import { getMemberById } from '../../lib/util';
@@ -82,6 +81,5 @@ export default {
                 }
                 `;
         replyToInteraction(interaction, true, 'Done', description, config.colors.green);
-        Database.log(guild.id, userId, '/split', nbMembersMoved1 + nbMembersMoved2);
     }
 } as ChatInputCommand;
