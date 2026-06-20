@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-alpine
 
 # Create the working directory
 RUN mkdir -p /bot
@@ -14,4 +14,4 @@ RUN npm ci --only=production
 COPY * ./
 
 # Start
-CMD ["npm", "run start"]
+CMD ["npm", "run", "start"]
