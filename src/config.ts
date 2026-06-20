@@ -2,7 +2,7 @@ import { ClientOptions } from 'discord.js';
 
 export default {
     clientOptions: {
-        intents: ['Guilds', 'GuildMembers', 'GuildVoiceStates']
+        intents: ['Guilds', 'GuildVoiceStates']
     } as ClientOptions,
     debug: {
         guildId: '714979539251626137'
